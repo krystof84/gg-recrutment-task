@@ -1,0 +1,36 @@
+footer {
+    background-color: $accentColor1;
+    color: $brightFont;
+    padding: 67px 0 186px 0;
+    margin-top: 152px;
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.footer__widget {
+    width: 200px;
+
+    p {
+        color: $brightFont;
+    }
+
+    ul {
+        margin-top: 35px;
+
+        li {
+            margin-top: 15px;
+
+            a {
+                color: $brightFont;
+            }
+        }
+    }
+
+    &-title {
+        font-size: 18px;
+    }
+}

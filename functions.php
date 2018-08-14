@@ -40,6 +40,39 @@ if( !function_exists('bb_setup') ) {
         ) );
     }
 }
-add_action('after_setup_theme', 'bb_setup')
+add_action('after_setup_theme', 'bb_setup');
+
+/**
+ * Register Widgets
+ */
+function bb_widgets_init() {
+    register_sidebar( array(
+        'name'          => 'Footer 1',
+        'id'            => 'bb-footer-widget-1',
+        'before_widget' => '<div class="footer__widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<p class="footer__widget-title">',
+        'after_title'   => '</p>',
+    ) );
+
+    register_sidebar( array(
+        'name'          => 'Footer 2',
+        'id'            => 'bb-footer-widget-2',
+        'before_widget' => '<div class="footer__widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<p class="footer__widget-title">',
+        'after_title'   => '</p>',
+    ) );
+
+    register_sidebar( array(
+        'name'          => 'Footer 3',
+        'id'            => 'bb-footer-widget-3',
+        'before_widget' => '<div class="footer__widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<p class="footer__widget-title">',
+        'after_title'   => '</p>',
+    ) );
+}
+add_action('widgets_init', 'bb_widgets_init');
 
 ?>
