@@ -9,3 +9,20 @@
         <?php wp_head(); ?>
     </head>
     </body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <a href="<?php echo home_url(); ?>">
+                    <?php 
+                    if ( function_exists( 'the_custom_logo' ) ) {
+                        the_custom_logo();
+                    }
+                    ?>
+                </a>
+            </div>
+
+            <nav>
+                <?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
+            </nav>
+        </div>
+    </div>
