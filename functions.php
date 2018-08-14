@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Enqueues scripts and styles.
+ */
 function theme_scripts() {
 
     // Theme css file
@@ -14,5 +17,16 @@ function theme_scripts() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts');
+
+
+/**
+ * Setup theme
+ */
+if( !function_exists('bb_setup') ) {
+    function bb_setup() {
+        add_theme_support( 'post-thumbnails' ); 
+    }
+}
+add_action('after_setup_theme', 'bb_setup')
 
 ?>
