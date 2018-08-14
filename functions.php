@@ -55,8 +55,60 @@ if( !function_exists('bb_setup') ) {
                 'taxonomies' => array(
                     'category'
                 ),
+                'register_meta_box_cb' => 'gg_add_metabox_excerpt',
             )
         );
+
+        // Register custom metabox excerpt for post type: testowy
+        function gg_add_metabox_excerpt() {
+            add_meta_box(
+                'gg_single_excerpt',
+                'Excerpt',
+                'gg_create_field_excerpt',
+                'testowy',
+                'normal',
+                'high'
+            );
+        }
+        // Generate HTML for custom metabox
+        function gg_create_field_excerpt() {
+            global $post;
+      
+            wp_nonce_field( basename( __FILE__ ), 'single_excerpt' );
+
+         
+            $singleExcerpt = get_post_meta( $post->ID, 'singleExcerpt', true );
+         
+            echo '<textarea name="singleExcerpt" rows="5" class="widefat">' . esc_textarea( $singleExcerpt ) . '</textarea>';
+        }
+        // Save the metabox data
+        function gg_save_excerpt_meta( $post_id, $post ) {
+           
+            if ( ! current_user_can( 'edit_post', $post_id ) ) {
+                return $post_id;
+            }
+     
+            if ( ! isset( $_POST['singleExcerpt'] ) || ! wp_verify_nonce( $_POST['single_excerpt'], basename(__FILE__) ) ) {
+                return $post_id;
+            }
+
+            $events_meta['singleExcerpt'] = esc_textarea( $_POST['singleExcerpt'] );
+            foreach ( $events_meta as $key => $value ) :
+                if ( 'revision' === $post->post_type ) {
+                    return;
+                }
+                if ( get_post_meta( $post_id, $key, false ) ) {
+                    update_post_meta( $post_id, $key, $value );
+                } else {
+                    add_post_meta( $post_id, $key, $value);
+                }
+                if ( ! $value ) {
+                    delete_post_meta( $post_id, $key );
+                }
+            endforeach;
+        }
+        add_action( 'save_post', 'gg_save_excerpt_meta', 1, 2 );
+
 
         // Register custom taxonomy for custom post: testowy
         register_taxonomy(
