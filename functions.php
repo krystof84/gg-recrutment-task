@@ -38,6 +38,39 @@ if( !function_exists('bb_setup') ) {
             'flex-width'  => true,
             'header-text' => array( 'site-title', 'site-description' ),
         ) );
+
+        // Register custom post type: testowy
+        register_post_type( 'testowy',
+            array(
+                'labels' => array(
+                    'name' => __( 'testowy' ),
+                    'singular_name' => __( 'testowy' )
+                ),
+                'public' => true,
+                'has_archive' => true,
+                'menu_position' => 5,
+                'supports' => array(
+                    'title', 'editor', 'thumbnail'
+                ),
+                'taxonomies' => array(
+                    'category'
+                ),
+            )
+        );
+
+        // Register custom taxonomy for custom post: testowy
+        register_taxonomy(
+            'kategoria', 
+            'testowy',
+            array(  
+                'hierarchical' => true,  
+                'query_var' => true,
+                'rewrite' => array(
+                    'slug' => 'kategoria', 
+                    'with_front' => false  
+                )
+            )  
+        );
     }
 }
 add_action('after_setup_theme', 'bb_setup');
