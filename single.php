@@ -34,7 +34,6 @@
                 if(is_active_sidebar('bb-single-widget-1')): 
                     dynamic_sidebar('bb-single-widget-1');
                 endif; 
-    
             endwhile;
             ?>
         </div>
