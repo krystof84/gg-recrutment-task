@@ -19,21 +19,17 @@ h4, h5, h6 {
     margin-top: 53px;
     font-size: 18px;
 }
-p {
+p, ul, ol {
     margin-top: 26px;
     color: $paragraphColor;
     font-size: 16px;
     line-height: 24px;
 }
+ul, ol {
+    line-height: 30px;
+}
 .container {
     width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
-}
-.content {
-
-    &--home {
-        width: 556px;
-        margin: 0 auto;
-    }
 }

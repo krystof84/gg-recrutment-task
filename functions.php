@@ -11,6 +11,9 @@ function theme_scripts() {
     // Add google font
     wp_enqueue_style('bb-font-fisrt', 'https://fonts.googleapis.com/css?family=Open+Sans', array(), null);
 
+    // Add FontAwesome
+    wp_enqueue_style('bb-font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); 
+
     // Main css file
     wp_enqueue_style('bb-main', get_template_directory_uri() . '/src/css/main.css', array(), '0.1');
 
@@ -25,8 +28,8 @@ add_action( 'wp_enqueue_scripts', 'theme_scripts');
 /**
  * Setup theme
  */
-if( !function_exists('bb_setup') ) {
-    function bb_setup() {
+if( !function_exists('gg_setup') ) {
+    function gg_setup() {
         add_theme_support( 'post-thumbnails' );
         
         register_nav_menu('main-menu', __('Main Menu'));
@@ -53,7 +56,7 @@ if( !function_exists('bb_setup') ) {
                     'title', 'editor', 'thumbnail'
                 ),
                 'taxonomies' => array(
-                    'category'
+                    'category', 'post_tag'
                 ),
                 'register_meta_box_cb' => 'gg_add_metabox_excerpt',
             )
@@ -123,9 +126,20 @@ if( !function_exists('bb_setup') ) {
                 )
             )  
         );
+
+        register_taxonomy('tag','testowy',array(
+            'hierarchical' => false,
+            'show_ui' => true,
+            'update_count_callback' => '_update_post_term_count',
+            'query_var' => true,
+            'rewrite' => array( 'slug' => 'tag' ),
+        ));
+
+        // Image Sizes
+        add_image_size('gg-post-thumbnail', 769, 409, true);
     }
 }
-add_action('after_setup_theme', 'bb_setup');
+add_action('after_setup_theme', 'gg_setup');
 
 /**
  * Register Widgets
@@ -156,6 +170,13 @@ function bb_widgets_init() {
         'after_widget'  => '</div>',
         'before_title'  => '<p class="footer__widget-title">',
         'after_title'   => '</p>',
+    ) );
+
+    register_sidebar( array(
+        'name'          => 'Testimonial',
+        'id'            => 'bb-single-widget-1',
+        'before_widget' => '<div class="testimonial">',
+        'after_widget'  => '</div>',
     ) );
 }
 add_action('widgets_init', 'bb_widgets_init');

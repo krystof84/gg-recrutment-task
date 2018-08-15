@@ -1,0 +1,204 @@
+.single {
+    width: 769px;
+    margin: 204px auto 0 auto;
+
+    &__title {
+        font-size: 28px;
+        line-height: 34px;
+        color: $headingColor;
+        padding-left: 100px;
+        padding-right: 113px;
+    }
+
+    &__excerpt {
+        font-size: 16px;
+        line-height: 22px;
+        color: $excerptColor;
+        padding-left: 100px;
+        padding-right: 113px;
+        margin-top: 50px;
+    }
+
+    &__thumbnail {
+        margin-top: 65px;
+        position: relative;
+        
+        .wp-post-image {
+            border-radius: 2px;
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6, p, ul, ol {
+        padding-left: 100px;
+        padding-right: 113px;
+    }
+
+    blockquote {
+        hr { display: none; }
+
+        p {
+            color: $headingColor;
+            padding: 0;
+            margin-top: 57px;
+            margin-bottom: 56px;
+            font-size: 22px;
+            line-height: 30px;
+            text-align: center;
+        }
+    }
+
+
+    li {
+        padding-left: 55px;
+        &:before {
+            display: inline-block;
+            width: 55px;
+            margin-left: -55px;
+            color: $paragraphColor;
+            text-align: center;
+        }
+    }
+
+    ul li {
+        &:before {
+          content: '\002022';
+          position: relative;
+          top: -3px;
+          font-size: 160%;
+          line-height: 0;
+          vertical-align: middle;
+        }
+    }
+
+    ol {
+        counter-reset: ordered-list;
+    
+        li:before {
+          counter-increment: ordered-list;
+          content: counter(ordered-list)".";
+        }
+    }
+
+    .cta {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 140px;
+        padding-right: 140px;
+        background-color: #f6f9fe;
+        border: 1px solid #b9d0fa;
+        border-radius: 2px;
+        padding-top: 28px;
+        padding-bottom: 24px;
+        margin-top: 43px;
+
+        &__icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 89px;
+            height: 90px;
+            border-radius: 90px;
+            color: #4a91e3;
+            font-size: 22px;
+            background-color: #e5effb;
+            margin-right: 22px;
+        }
+
+        &__heading {
+            margin: 0;
+
+            a {
+                color: $headingColor;
+            }
+        }
+
+        &__description {
+            margin-top: 17px;
+            color: #9f9f9f;
+        }
+
+        &__arrow {
+            color: $excerptColor;
+            margin-left: 13px;
+        }
+
+        p {
+            padding: 0;
+        }
+    }
+
+    .share {
+        width: 41px;
+        position: absolute;
+        top: 0;
+        right: -130px;
+
+        &__heading, &__icon {
+            display: block;
+            text-align: center;
+        }
+
+        &__heading {
+            font-size: 8px;
+            text-transform: uppercase;
+            color: $excerptColor;
+        }
+
+        &__icon {
+            margin: 22px auto 0 auto;
+            color: $brightFont;
+            background-color: $accentColor1;
+            font-size: 14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+ 
+
+    .tag {
+        padding-left: 100px;
+        padding-right: 113px;
+        margin-top: 39px;
+        
+        a {
+            background-color: #d6d6d6;
+            color: $brightFont;
+            padding: 12px 14px;
+            text-transform: uppercase;
+            font-size: 8px;
+            border-radius: 2px;
+            margin-right: 12px;
+        }
+    }
+
+    .testimonial {
+        border-top: 2px solid #f4f4f4;
+        margin: 104px 113px 0 100px;
+        text-align: center;
+
+        &__img {
+            width: 72px;
+            height: 72px;
+            margin: -38px auto 0 auto;
+            
+            img {
+                border-radius: 72px;
+            }
+        }
+
+        &__heading {
+            color: $headingColor;
+            margin-top: 28px;
+        }
+
+        &__desc {
+            color: $excerptColor;
+            margin-top: 21px;
+        }
+    }
+}
