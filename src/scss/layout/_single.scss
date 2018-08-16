@@ -8,6 +8,8 @@
         color: $headingColor;
         padding-left: 100px;
         padding-right: 113px;
+
+        a { color: $headingColor; }
     }
 
     &__excerpt {

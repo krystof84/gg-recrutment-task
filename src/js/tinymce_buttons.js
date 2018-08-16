@@ -24,17 +24,17 @@
                         {
                             type   : 'textbox',
                             name   : 'heading',
-                            label  : 'Baner heading',
+                            label  : 'Banner heading',
                         },
                         {
                             type   : 'textbox',
                             name   : 'link',
-                            label  : 'Baner link',
+                            label  : 'Banner link',
                         },
                         {
                             type   : 'textbox',
                             name   : 'description',
-                            label  : 'Baner description',
+                            label  : 'Banner description',
                         }
                     ],
                     onsubmit: function( e ) {

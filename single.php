@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php 
+global $wp_query; 
+get_header(); 
+?>
 
     <div class="container">
         <div class="content single">
@@ -34,7 +37,7 @@
                 if(is_active_sidebar('bb-single-widget-1')): 
                     dynamic_sidebar('bb-single-widget-1');
                 endif; 
-            endwhile;
+            endwhile;  
             ?>
         </div>
     </div>

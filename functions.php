@@ -1,9 +1,11 @@
 <?php
 
+
 /**
  * Enqueues scripts and styles.
  */
 function theme_scripts() {
+    global $wp_query; 
 
     // Theme css file
     wp_enqueue_style('bb-style', get_template_directory_uri() . '/style.css', array(), '0.1');   
@@ -21,6 +23,17 @@ function theme_scripts() {
     if($_SERVER['SERVER_NAME'] == 'globegroup') {
         wp_enqueue_script('livereload', 'http://globegroup:35729/livereload.js?snipver=1', null, false, true);
     }
+
+    // Load more script
+    wp_register_script( 'bb-loadmore', get_template_directory_uri() . '/src/js/loadmore.js', array('jquery'), '0.1' );
+    wp_localize_script( 'bb-loadmore', 'bb_loadmore_params', array(
+		'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php', 
+		'posts' => json_encode( $wp_query->query_vars ), 
+		'current_page' => get_query_var( 'paged' ) ? get_query_var('paged') : 1,
+		'max_page' => $wp_query->max_num_pages
+    ) );
+    wp_enqueue_script( 'bb-loadmore');
+
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts');
 
@@ -32,7 +45,7 @@ function theme_admin_scripts() {
 }
 add_action( 'admin_enqueue_scripts', 'theme_admin_scripts' );
 
-/********* TinyMCE Buttons ***********/
+// Tiny MCE banner button
 if ( ! function_exists( 'mytheme_buttons' ) ) {
     function mytheme_buttons() {
         if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
@@ -79,16 +92,6 @@ if ( !function_exists( 'mytheme_tinymce_extra_vars' ) ) {
 		</script><?php
 	}
 }
-
-// add_action ( 'admin_enqueue_scripts', function () {
-//     if (is_admin ())
-//         wp_enqueue_media ();
-// } );
-
-
-
-
-
 
 
 // Add Shortcode: banner
@@ -282,5 +285,44 @@ function bb_widgets_init() {
     ) );
 }
 add_action('widgets_init', 'bb_widgets_init');
+
+/**
+ * Ajax load more
+ */
+function bb_ajax_handler(){
+ 
+	$args = json_decode( stripslashes( $_POST['query'] ), true );
+	$args['paged'] = $_POST['page'] + 1; 
+	$args['post_status'] = 'publish';
+ 
+	query_posts( $args );
+ 
+	if( have_posts() ) : 
+ 
+        while ( have_posts() ) : the_post(); ?>
+            <div class="content single">
+                <h1 class="single__title"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h1>
+
+                <div class="single__excerpt">
+                    <?php echo get_post_meta($post->ID, 'singleExcerpt', true); ?>
+                </div>
+
+
+                <?php if(has_post_thumbnail()): ?>
+                    <div class="single__thumbnail">
+                        <?php the_post_thumbnail('gg-post-thumbnail'); ?>
+                    </div>    
+                <?php 
+                endif;
+                the_content(); ?>
+            </div>   
+        <?php        
+        endwhile;
+   
+	endif;
+	die; 
+}
+add_action('wp_ajax_loadmore', 'bb_ajax_handler');
+add_action('wp_ajax_nopriv_loadmore', 'bb_ajax_handler'); 
 
 ?>
